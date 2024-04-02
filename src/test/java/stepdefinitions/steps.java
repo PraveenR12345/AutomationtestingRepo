@@ -9,15 +9,14 @@ import org.openqa.selenium.support.ui.Select;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class steps {
 	WebDriver driver;
 
 	@Given("user open the URL {string}")
 	public void user_open_the_url(String string) {
-		WebDriverManager.chromedriver().setup();
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\PraveenReddyGurram\\eclipse-workspace\\seleniummavenjava\\cheomedriver-win64\\chromedriver.exe");		driver=new ChromeDriver();
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\PraveenReddyGurram\\eclipse-workspace\\seleniummavenjava\\cheomedriver-win64\\chromedriver.exe");		
+		driver=new ChromeDriver();
 		//UMS URL 
 		driver.get(string);
 		driver.manage().window().maximize();
@@ -38,14 +37,48 @@ public class steps {
 	public void user_enter_the_submit_button() throws InterruptedException {
 		//login
 		driver.findElement(By.xpath("//button[@id='loginButton']")).click();
+		Thread.sleep(7000);
+	}
+
+	@Then("click on settings")
+	public void click_on_settings() throws InterruptedException {
+		driver.findElement(By.xpath("//div[normalize-space()='Settings']")).click();
 		Thread.sleep(5000);
+
 	}
 	
+	@Then("click on roles")
+	public void click_on_roles() throws InterruptedException {
+		driver.findElement(By.xpath("//a[normalize-space()='Roles']")).click();
+		Thread.sleep(5000);  
+		
+		driver.findElement(By.xpath("//p[normalize-space()='Add']")).click();
+		Thread.sleep(5000);  
+		
+		driver.findElement(By.xpath("//input[@id='addRoleName']")).sendKeys("TestManager");
+		Thread.sleep(5000); 
+		
+		WebElement roleelement=driver.findElement(By.xpath("//select[@id='addPermissions']"));
+		Select permissiondrpdown=new Select(roleelement);
+		permissiondrpdown.selectByIndex(2);
+		Thread.sleep(5000); 
+
+		driver.findElement(By.xpath("//div[@id='createModal']//button[@type='button'][normalize-space()='Save']")).click();
+		Thread.sleep(5000); 
+
+	}
+
+
 	@Then("click on logout button")
 	public void click_on_logout_button() throws InterruptedException {
+		Thread.sleep(7000);
+
+		driver.findElement(By.xpath("//div[@class='header-pic']")).click();
+		Thread.sleep(5000);
+
 		driver.findElement(By.xpath("//button[@id='logoutRef']")).click();
 		Thread.sleep(5000);
-	   
+
 	}
 
 }
