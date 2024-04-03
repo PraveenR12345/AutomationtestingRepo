@@ -46,28 +46,59 @@ public class steps {
 		Thread.sleep(5000);
 
 	}
-	
 	@Then("click on roles")
 	public void click_on_roles() throws InterruptedException {
 		driver.findElement(By.xpath("//a[normalize-space()='Roles']")).click();
 		Thread.sleep(5000);  
-		
+	}
+
+	@Then("click on add role {string} and {string}")
+	public void click_on_add_role_and(String string1, String string2) throws InterruptedException {
+
 		driver.findElement(By.xpath("//p[normalize-space()='Add']")).click();
 		Thread.sleep(5000);  
-		
-		driver.findElement(By.xpath("//input[@id='addRoleName']")).sendKeys("TestManager");
+
+		driver.findElement(By.xpath("//input[@id='addRoleName']")).sendKeys(string1);
 		Thread.sleep(5000); 
-		
+
 		WebElement roleelement=driver.findElement(By.xpath("//select[@id='addPermissions']"));
 		Select permissiondrpdown=new Select(roleelement);
-		permissiondrpdown.selectByIndex(2);
+		permissiondrpdown.selectByVisibleText(string2);
 		Thread.sleep(5000); 
 
 		driver.findElement(By.xpath("//div[@id='createModal']//button[@type='button'][normalize-space()='Save']")).click();
 		Thread.sleep(5000); 
 
+
+	}
+	@Then("click on settings1")
+	public void click_on_settings1() throws InterruptedException {
+		driver.findElement(By.xpath("//div[normalize-space()='Settings']")).click();
+		Thread.sleep(5000);
+	}
+	
+	@Then("click on task category")
+	public void click_on_task_category() throws InterruptedException {
+	    driver.findElement(By.xpath("//a[normalize-space()='Task Category']")).click();
+		Thread.sleep(5000);
+
 	}
 
+	@Then("click on add task category {string} and {string}")
+	public void click_on_add_task_category(String string1, String string2) throws InterruptedException {
+		driver.findElement(By.xpath("//p[normalize-space()='Add']")).click();
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("//input[@id='categoryName']")).sendKeys(string1);
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("//textarea[@id='categoryDesc']")).sendKeys(string2);
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("//button[normalize-space()='Save']")).click();
+		Thread.sleep(5000);
+		
+	}
 
 	@Then("click on logout button")
 	public void click_on_logout_button() throws InterruptedException {
